@@ -5,22 +5,22 @@
  * Strings in the input are ignored during operation and preserved. Rounds to two decimal places.
  *
  * @param {string|Array<string>|number|Array<number>} input - The value or range of cells to be multiplied
- * @param {string|number} multiple
+ * @param {string|number} multiplier
  * @return - Any numbers in the input multiplied by the multiple, with strings preserved in between
  * @customfunction
  */
-function multiplyAndPreserve(input, multiple) {
-  if (!multiple) {
+function multiplyAndPreserve(input, multiplier) {
+  if (!multiplier) {
     return input;
   }
   if (!input) {
     return [];
   }
-  const sanitizedMultiple =
-    typeof multiple === "number"
+  const sanitizedMultiplier =
+    typeof multiplier === "number"
       ? multiple
-      : parseFloat(multiple.replace(/[^\d.]/g, ""));
-  if (!sanitizedMultiple) {
+      : parseFloat(multiplier.replace(/[^\d.]/g, ""));
+  if (!sanitizedMultiplier) {
     return null;
   }
   const inputList = Array.isArray(input) ? input : [input];
@@ -33,7 +33,7 @@ function multiplyAndPreserve(input, multiple) {
           .map((segment) =>
             /^\d*\.?\d+$/.test(segment)
               ? (
-                  Math.round(parseFloat(segment) * sanitizedMultiple * 100) /
+                  Math.round(parseFloat(segment) * sanitizedMultiplier * 100) /
                   100
                 ).toString()
               : segment
